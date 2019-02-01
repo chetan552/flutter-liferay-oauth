@@ -42,5 +42,5 @@ Add the following to your pubspec.yaml dependencies:
 
 ```yaml
 dependencies:
-  flutter_liferay_oauth: "^0.0.1"
+  flutter_liferay_oauth: "^0.0.2"
 ```
