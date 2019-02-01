@@ -1,0 +1,9 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/flutter_custom_tabs" "${PODS_CONFIGURATION_BUILD_DIR}/flutter_webview_plugin" "${PODS_CONFIGURATION_BUILD_DIR}/path_provider" "${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences" "${PODS_CONFIGURATION_BUILD_DIR}/url_launcher" "${PODS_CONFIGURATION_BUILD_DIR}/video_player" "${PODS_ROOT}/../.symlinks/flutter/ios"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/flutter_custom_tabs/flutter_custom_tabs.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/flutter_webview_plugin/flutter_webview_plugin.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/path_provider/path_provider.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences/shared_preferences.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/url_launcher/url_launcher.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/video_player/video_player.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Flutter" -framework "flutter_custom_tabs" -framework "flutter_webview_plugin" -framework "path_provider" -framework "shared_preferences" -framework "url_launcher" -framework "video_player"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods

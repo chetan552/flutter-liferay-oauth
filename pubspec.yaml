@@ -1,0 +1,24 @@
+name: flutter_liferay_oauth
+description: Flutter OAuth package for performing user authentication against Liferay OAuth2 v2.0 endpoint.
+version: 0.0.1
+author: Chetan chetan@xtivia.com
+homepage:
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter_webview_plugin: ^0.3.0+2
+  http: ^0.12.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
