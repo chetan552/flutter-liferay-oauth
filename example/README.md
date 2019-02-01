@@ -15,8 +15,7 @@ Ensure the liferay_oauth package is pointing to the right folder in your pubspec
 ```dependencies:
     flutter:
         sdk: flutter
-    liferay_oauth:
-        path: /Users/chetanchadalavada/Desktop/MobileProject/flutter/liferay_oauth
+    liferay_oauth: ^0.0.1
 ```
 
 A few resources to get you started if this is your first Flutter project:
