@@ -18,11 +18,15 @@ In the flutter app, initialize:
 final Config config = new Config(
   "LIFERAY SERVER",
   "REDIRECT_URL",
-  "CLIENT_ID");
+  "CLIENT_ID"
+  "CLIENT_SECRET");
 final LiferayOAuth oauth = new LiferayOAuth(config);
 ```
 
-This allows you to pass in an Liferay Server, Redirect Url, client ID and few more optional params.
+This allows you to pass in an Liferay Server, Redirect Url, client ID, Client secret and few more optional params.
+
+If your service require to pass an oauth2 scope, the config allows for an optional param 'scope'. 
+For more on [OAuth2 Scopes](https://dev.liferay.com/discover/deployment/-/knowledge_base/7-1/oauth2-scopes)
 
 Then once you have an OAuth instance, you can call `login()` and afterwards `getAccessToken()` to 
 retrieve an access token and pass it to the rest client:
@@ -42,5 +46,5 @@ Add the following to your pubspec.yaml dependencies:
 
 ```yaml
 dependencies:
-  flutter_liferay_oauth: "^0.0.2"
+  flutter_liferay_oauth: "^0.1.2"
 ```
