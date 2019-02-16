@@ -13,13 +13,11 @@ class Config {
   Size screenSize;
 
   Config(this.liferayServer, this.redirectUri, this.clientId, this.clientSecret,
-      { this.scope,
-        this.responseType = "code",
-        this.contentType = "application/x-www-form-urlencoded",
-        this.screenSize}) {
-    this.authorizationUrl =
-        this.liferayServer+"/o/oauth2/authorize";
-    this.tokenUrl =
-        this.liferayServer+"/o/oauth2/token";
+      {this.scope,
+      this.responseType = "code",
+      this.contentType = "application/x-www-form-urlencoded",
+      this.screenSize}) {
+    this.authorizationUrl = this.liferayServer + "/o/oauth2/authorize";
+    this.tokenUrl = this.liferayServer + "/o/oauth2/token";
   }
 }

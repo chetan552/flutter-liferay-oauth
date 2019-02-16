@@ -1,8 +1,6 @@
-
 import '../model/config.dart';
 
 class AuthorizationRequest {
-
   String url;
   String redirectUrl;
   Map<String, String> parameters;
@@ -19,6 +17,10 @@ class AuthorizationRequest {
       "response_type": config.responseType,
       "redirect_uri": config.redirectUri,
     };
+
+    if ( config.scope != null )
+      parameters.putIfAbsent("scope", () => config.scope);
+
     this.fullScreen = fullScreen;
     this.clearCookies = clearCookies;
   }

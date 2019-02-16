@@ -1,7 +1,6 @@
 import '../model/config.dart';
 
 class TokenRequestDetails {
-
   String url;
   Map<String, String> params;
   Map<String, String> headers;
@@ -14,8 +13,11 @@ class TokenRequestDetails {
       "redirect_uri": config.redirectUri,
       "grant_type": "authorization_code"
     };
-    if ( config.clientSecret != null )
+    if (config.clientSecret != null)
       params.putIfAbsent("client_secret", () => config.clientSecret);
+
+    if (config.scope != null )
+      params.putIfAbsent("scope", () => config.scope);
 
     this.headers = {
       "Accept": "application/json",
@@ -23,5 +25,3 @@ class TokenRequestDetails {
     };
   }
 }
-
-

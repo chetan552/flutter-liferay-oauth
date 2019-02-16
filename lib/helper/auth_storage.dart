@@ -3,7 +3,6 @@ import '../model/token.dart';
 import "dart:convert" as Convert;
 import 'package:flutter/material.dart';
 
-
 class AuthStorage {
   static AuthStorage shared = new AuthStorage();
   //We use a basic in memory auth storage for dart.

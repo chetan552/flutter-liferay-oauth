@@ -1,0 +1,12 @@
+.DS_Store
+.atom/
+.idea
+.packages
+.pub/
+packages
+pubspec.lock
+example/ios/.symlinks
+ios/.symlinks
+build/
+example/build/
+example/

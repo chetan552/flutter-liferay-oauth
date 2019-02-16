@@ -16,14 +16,14 @@ class LiferayOAuth {
   RequestToken _requestToken;
 
   factory LiferayOAuth(config) {
-    if ( LiferayOAuth._instance == null )
+    if (LiferayOAuth._instance == null)
       LiferayOAuth._instance = new LiferayOAuth._internal(config);
     return _instance;
   }
 
   static LiferayOAuth _instance;
 
-  LiferayOAuth._internal(config){
+  LiferayOAuth._internal(config) {
     LiferayOAuth._config = config;
     _authStorage = _authStorage ?? new AuthStorage();
     _requestCode = new RequestCode(_config);
@@ -35,13 +35,11 @@ class LiferayOAuth {
   }
 
   Future<void> login() async {
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
   }
 
   Future<String> getAccessToken() async {
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
 
     return _token.accessToken;
   }
