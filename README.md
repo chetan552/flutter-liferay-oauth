@@ -5,6 +5,7 @@ Forked from [Earlybyte.aad_oauth](https://github.com/Earlybyte/aad_oauth).
 
 Supported Flows:
  - [Authorization code flow (including refresh token flow)](https://dev.liferay.com/discover/deployment/-/knowledge_base/7-1/authorizing-account-access-with-oauth2)
+ - [PKCE Extended Authorization Code flow](https://portal.liferay.dev/docs/7-1/deploy/-/knowledge_base/d/authorizing-account-access-with-oauth2#pkce-extended-authorization-code-flow)
 
 More info on [Liferay/Oauth2](https://dev.liferay.com/discover/deployment/-/knowledge_base/7-1/oauth-2-0)
 
@@ -16,10 +17,10 @@ In the flutter app, initialize:
 
 ```dart
 final Config config = new Config(
-  "LIFERAY SERVER",
-  "REDIRECT_URL",
-  "CLIENT_ID"
-  "CLIENT_SECRET");
+  "<LIFERAY SERVER>",
+  "<REDIRECT_URL>",
+  "<CLIENT_ID>",
+  usePkce: true); // Request an authorization code using PKCE code challenge.
 final LiferayOAuth oauth = new LiferayOAuth(config);
 ```
 
@@ -46,5 +47,5 @@ Add the following to your pubspec.yaml dependencies:
 
 ```yaml
 dependencies:
-  flutter_liferay_oauth: "^0.1.2"
+  flutter_liferay_oauth: "^0.1.3"
 ```
