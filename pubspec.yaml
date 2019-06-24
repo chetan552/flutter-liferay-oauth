@@ -1,6 +1,6 @@
 name: flutter_liferay_oauth
 description: Flutter OAuth package for performing user authentication against Liferay OAuth2 v2.0 endpoint.
-version: 0.1.2
+version: 0.1.3
 author: Chetan <chetan@xtivia.com>
 homepage: https://github.com/chetan552/flutter-liferay-oauth
 
