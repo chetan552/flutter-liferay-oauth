@@ -10,13 +10,16 @@ class Config {
   final String contentType;
   final String scope;
   final String liferayServer;
+  final bool usePkce;
   Size screenSize;
 
-  Config(this.liferayServer, this.redirectUri, this.clientId, this.clientSecret,
-      {this.scope,
+  Config(this.liferayServer, this.redirectUri, this.clientId,
+      {this.clientSecret,
+      this.scope,
       this.responseType = "code",
       this.contentType = "application/x-www-form-urlencoded",
-      this.screenSize}) {
+      this.screenSize,
+      this.usePkce}) {
     this.authorizationUrl = this.liferayServer + "/o/oauth2/authorize";
     this.tokenUrl = this.liferayServer + "/o/oauth2/token";
   }

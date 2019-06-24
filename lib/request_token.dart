@@ -10,15 +10,18 @@ class RequestToken {
   final Config config;
   TokenRequestDetails _tokenRequest;
   TokenRefreshRequestDetails _tokenRefreshRequest;
+  String _codeVerifier;
 
   RequestToken(this.config);
 
-  Future<Token> requestToken(String code) async {
+  Future<Token> requestToken(String code, String codeVerifier) async {
+    _codeVerifier = codeVerifier;
     _generateTokenRequest(code);
     return await _sendTokenRequest(_tokenRequest.params, _tokenRequest.headers);
   }
 
-  Future<Token> requestRefreshToken(String refreshToken) async {
+  Future<Token> requestRefreshToken(String refreshToken, String codeVerifier) async {
+    _codeVerifier = codeVerifier;
     _generateTokenRefreshRequest(refreshToken);
     return await _sendTokenRequest(
         _tokenRefreshRequest.params, _tokenRefreshRequest.headers);
@@ -26,6 +29,11 @@ class RequestToken {
 
   Future<Token> _sendTokenRequest(
       Map<String, String> params, Map<String, String> headers) async {
+
+    if (config.usePkce) {
+      params.putIfAbsent("code_verifier", () => _codeVerifier);
+    }
+
     Response response =
         await post("${_tokenRequest.url}", body: params, headers: headers);
     Map<String, dynamic> tokenJson = json.decode(response.body);

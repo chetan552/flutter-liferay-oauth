@@ -7,6 +7,7 @@ class AuthorizationRequest {
   Map<String, String> headers;
   bool fullScreen;
   bool clearCookies;
+  String verifier;
 
   AuthorizationRequest(Config config,
       {bool fullScreen: true, bool clearCookies: false}) {
@@ -15,11 +16,12 @@ class AuthorizationRequest {
     this.parameters = {
       "client_id": config.clientId,
       "response_type": config.responseType,
-      "redirect_uri": config.redirectUri,
+      "redirect_uri": config.redirectUri
     };
 
-    if ( config.scope != null )
+    if ( config.scope != null ) {
       parameters.putIfAbsent("scope", () => config.scope);
+    }
 
     this.fullScreen = fullScreen;
     this.clearCookies = clearCookies;

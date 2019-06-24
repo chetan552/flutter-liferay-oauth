@@ -13,7 +13,7 @@ class TokenRequestDetails {
       "redirect_uri": config.redirectUri,
       "grant_type": "authorization_code"
     };
-    if (config.clientSecret != null)
+    if (config.clientSecret != null && !config.usePkce)
       params.putIfAbsent("client_secret", () => config.clientSecret);
 
     if (config.scope != null )

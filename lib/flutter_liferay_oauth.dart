@@ -7,6 +7,7 @@ import 'model/token.dart';
 import 'request_code.dart';
 import 'request_token.dart';
 import 'dart:async';
+import 'dart:math';
 
 class LiferayOAuth {
   static Config _config;
@@ -14,6 +15,7 @@ class LiferayOAuth {
   Token _token;
   RequestCode _requestCode;
   RequestToken _requestToken;
+  String _codeVerifier;
 
   factory LiferayOAuth(config) {
     if (LiferayOAuth._instance == null)
@@ -59,7 +61,15 @@ class LiferayOAuth {
     // load token from cache
     _token = await _authStorage.loadTokenToCache();
 
-    //still have refreh token / try to get new access token with refresh token
+    if (_config.usePkce) {
+      _codeVerifier = await _authStorage.loadCodeVerifierFromCache();
+
+      if (_codeVerifier == null) {
+        _codeVerifier = _generateCodeVerifier();
+      }
+    }
+
+    //still have refresh token / try to get new access token with refresh token
     if (_token != null)
       await _performRefreshAuthFlow();
 
@@ -74,13 +84,16 @@ class LiferayOAuth {
 
     //save token to cache
     await _authStorage.saveTokenToCache(_token);
+
+    //save codeverifier
+    await _authStorage.saveCodeVerifierToCache(_codeVerifier);
   }
 
   Future<void> _performFullAuthFlow() async {
     String code;
     try {
-      code = await _requestCode.requestCode();
-      _token = await _requestToken.requestToken(code);
+      code = await _requestCode.requestCode(_codeVerifier);
+      _token = await _requestToken.requestToken(code,_codeVerifier);
     } catch (e) {
       print(e.toString());
       rethrow;
@@ -90,10 +103,22 @@ class LiferayOAuth {
   Future<void> _performRefreshAuthFlow() async {
     if (_token.refreshToken != null) {
       try {
-        _token = await _requestToken.requestRefreshToken(_token.refreshToken);
+        _token = await _requestToken.requestRefreshToken(_token.refreshToken, _codeVerifier);
       } catch (e) {
         //do nothing (because later we try to do a full oauth code flow request)
       }
     }
+  }
+
+  String _generateCodeVerifier() {
+    final Random _random = Random.secure();
+    int length = 50;
+    String text = "";
+    String allowed = "-._~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++) {
+      text += allowed[_random.nextInt(allowed.length-1)];
+    }
+
+    return text;
   }
 }

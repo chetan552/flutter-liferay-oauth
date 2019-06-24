@@ -4,12 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'request/authorization_request.dart';
 import 'model/config.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class RequestCode {
   final StreamController<String> _onCodeListener = new StreamController();
   final FlutterWebviewPlugin _webView = new FlutterWebviewPlugin();
   final Config _config;
   AuthorizationRequest _authorizationRequest;
+  String _verifier;
 
   var _onCodeStream;
 
@@ -17,7 +20,9 @@ class RequestCode {
     _authorizationRequest = new AuthorizationRequest(config);
   }
 
-  Future<String> requestCode() async {
+  Future<String> requestCode(String codeVerifier) async {
+    _verifier = codeVerifier;
+
     var code;
     final String urlParams = _constructUrlParams();
 
@@ -68,9 +73,24 @@ class RequestCode {
       _mapToQueryParams(_authorizationRequest.parameters);
 
   String _mapToQueryParams(Map<String, String> params) {
+    if (_config.usePkce) {
+      var encodeVerifier = _encodeVerifier(_verifier);
+
+      if (params.containsKey("code_challenge")) {
+        params.remove("code_challenge");
+      }
+      params.putIfAbsent("code_challenge", () => encodeVerifier);
+    }
+
     final queryParams = <String>[];
     params
         .forEach((String key, String value) => queryParams.add("$key=$value"));
     return queryParams.join("&");
+  }
+
+  String _encodeVerifier(String code) {
+    Digest digest = sha256.convert(utf8.encode(code));
+    String encoded = base64Url.encode(digest.bytes).split('=')[0];
+    return encoded;
   }
 }

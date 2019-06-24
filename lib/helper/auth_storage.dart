@@ -8,11 +8,23 @@ class AuthStorage {
   //We use a basic in memory auth storage for dart.
   Map<String, String> _memoryMap = {};
   final String _identifier = "Token";
+  final String _cvIdentifier = "CodeVerifier";
 
   Future<void> saveTokenToCache(Token token) async {
     var data = Token.toJsonMap(token);
     var json = Convert.jsonEncode(data);
     await _write(key: _identifier, value: json);
+  }
+
+  Future<void> saveCodeVerifierToCache(String codeVerifier) async {
+    await _write(key: _cvIdentifier, value: codeVerifier);
+  }
+
+  Future<T> loadCodeVerifierFromCache<T extends String>() async {
+    var data = await _read(key: _cvIdentifier);
+    if (data == null) return null;
+
+    return data;
   }
 
   Future<T> loadTokenToCache<T extends Token>() async {
